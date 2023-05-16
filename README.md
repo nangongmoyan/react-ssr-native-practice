@@ -22,6 +22,7 @@
 ##### 项目结构
 
 ##### 创建Node服务器
+
 `
 import express from 'express';
 
@@ -32,6 +33,7 @@ app.use(express.static('public'));
 app.listen(3000, () => console.log('app is running on 3000 port'));
 
 export default app;
+
 `
 
 ##### 实现React SSR
