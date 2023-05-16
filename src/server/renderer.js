@@ -12,6 +12,7 @@ export default (req, store) => {
       <StaticRouter location={req.path}>{renderRoutes(routes)}</StaticRouter>
     </Provider>
   );
+
   const initalState = serialize(store.getState());
   return `
   <html>

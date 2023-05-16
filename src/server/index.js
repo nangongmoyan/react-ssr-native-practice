@@ -14,6 +14,7 @@ app.get('*', (req, res) => {
     if (route.loadData) return route.loadData(store)
   })
 
+  /** 等待数据渲染完成并对客户端做出响应 */
   Promise.all(promises).then(() => {
     res.send(renderer(req, store));
   })

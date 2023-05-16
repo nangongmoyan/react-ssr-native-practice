@@ -4,5 +4,5 @@ import logger from "redux-logger";
 export default () => configureStore({
   reducer,
   preloadedState: window.INITIAL_STATE,
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 })
