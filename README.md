@@ -102,7 +102,8 @@ hydrate(
 ```app.use(express.static('public'));```
 
 ### 优化
-###### 合并webpack配置
+
+##### 合并webpack配置
 - 服务端webpack和客户端webpack配置存在重复，将重复配置抽象到webpack.base.js配置文件中
 
 ```
