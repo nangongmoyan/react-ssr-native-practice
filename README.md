@@ -207,10 +207,14 @@ hydrate(
 - 创建Store的代码由于参数传递不用所以不可共用
 
 ##### 实现客户端Redux
-- 1.创建Store
-- 2.配置Store
-- 3.创建Action和Reducer
-- 4.配置polyfill
+1.创建Store
+
+2.配置Store
+
+3.创建Action和Reducer
+
+4.配置polyfill
+
 由于浏览器不能识别异步函数代码，所以需要polyfill进行填充
 
 ##### 实现服务器端Redux
@@ -335,7 +339,7 @@ export default () => configureStore({
 
 ##### 防范XSS攻击
 
--转义状态中的恶意代码
+- 转义状态中的恶意代码
 
 ```
 import serialize from 'serialize-javascript';
