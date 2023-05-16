@@ -4,11 +4,11 @@
 
 ##### 什么是客户端渲染（CSR：Client Side Rendering）
 
-服务器端进返回JSON数据，DATA和HTML在客户端进行渲染
+- 服务器端进返回JSON数据，DATA和HTML在客户端进行渲染
 
 ##### 什么是服务器端渲染（SSR：Server Side Rendering）
 
-服务器端进返回HTML，DATA和HTML在服务器端进行渲染
+- 服务器端进返回HTML，DATA和HTML在服务器端进行渲染
 
 ##### 客户端渲染存在的问题
 - **首屏等待时间长，用户体验差**
