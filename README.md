@@ -15,7 +15,7 @@
 - **页面结构为空，不利于SEO**
 
 ##### React SSR同构
-同构指的是代码复用，即实现客户端和服务器端最大程度的代码复用
+- 同构指的是代码复用，即实现客户端和服务器端最大程度的代码复用
 
 ### 服务器啊端渲染快速开始
 
@@ -46,7 +46,7 @@ renderToString方法用于将React组件转换为HTML字符串，通过react-dom
 
 ##### webpack 打包配置
 
-问题： Node环境不支持ESModule模块系统，不支持JSX语法
+- 问题： Node环境不支持ESModule模块系统，不支持JSX语法
 
 
 ##### 项目启动命令配置
@@ -57,11 +57,11 @@ renderToString方法用于将React组件转换为HTML字符串，通过react-dom
 ### 客户端React附加事件
 
 ##### 实现思路分析
-在客户端对组件进行二次渲染，为组件元素附加事件 
+- 在客户端对组件进行二次渲染，为组件元素附加事件 
 
 ##### 客户端二次“渲染”hydrate
-使用hydrate方法对组件进行渲染，为组件元素附加事件
-hydrate方法在实现渲染的时候，会复用原本已经存在的DOM节点，减少重新生成节点以及删除原本DOM节点的开销，通过react-dom导入hydrate
+- 使用hydrate方法对组件进行渲染，为组件元素附加事件
+- hydrate方法在实现渲染的时候，会复用原本已经存在的DOM节点，减少重新生成节点以及删除原本DOM节点的开销，通过react-dom导入hydrate
 ```
 hydrate(
   document.getElementById("root"),
@@ -76,11 +76,13 @@ hydrate(
 1. webpack配置
   打包目的：转换JSX语法，转换浏览器不识别的高级javascript语法
   打包目标位置：public
+
 2.打包启动命令配置
     "dev:client-build": "webpack --config webpack.client.js --watch"
 
 ##### 添加客户端包文件请求链接
-在响应给客户端的HTML代码中添加script标签，请求客户端Javascript打包文件
+- 在响应给客户端的HTML代码中添加script标签，请求客户端Javascript打包文件
+
 ```
   <html>
     <head>
@@ -95,12 +97,14 @@ hydrate(
 
 
 ###### 服务器端实现静态资源访问
-服务器短程序实现静态资源访问功能，客户端JavaScript打包文件会被作为静态资源使用
+- 服务器短程序实现静态资源访问功能，客户端JavaScript打包文件会被作为静态资源使用
+
 ```app.use(express.static('public'));```
 
 ### 优化
 ###### 合并webpack配置
-服务端webpack和客户端webpack配置存在重复，将重复配置抽象到webpack.base.js配置文件中
+- 服务端webpack和客户端webpack配置存在重复，将重复配置抽象到webpack.base.js配置文件中
+
 ```
 const baseConfig = require('./webpack.base');
 const { merge } = require("webpack-merge");
@@ -110,28 +114,31 @@ module.exports = merge(baseConfig, config)
 ```
 
 ##### 合并项目启动命令
-目的：使用一个命令启动项目，解决多个名利启动的繁琐问题，通过npm-run-all工具实现
+- 目的：使用一个命令启动项目，解决多个名利启动的繁琐问题，通过npm-run-all工具实现
+
 ```"dev": "npm-run-all --parallel dev:*" ```
 
 ##### 服务器端打包文件体积优化
-问题： 在服务器端打包文件中，包含Node系统模块，导致打包文件本身体积庞大，
-解决： 通过webpack配置剔除打包文件中的Node模块
+- 问题： 在服务器端打包文件中，包含Node系统模块，导致打包文件本身体积庞大，
+- 解决： 通过webpack配置剔除打包文件中的Node模块
+
 ```
 const nodeExternals = require('webpack-node-externals');
 const config = {
     externals: [nodeExternals()]
 }
 ```
+
 ###### 将启动服务器代码和渲染代码进行模块化拆分
-优化代码组织方式，渲染React组件代码是独立功能，所以吧它从服务器端入口文件中进行抽离
+- 优化代码组织方式，渲染React组件代码是独立功能，所以吧它从服务器端入口文件中进行抽离
 
 ### 路由支持
 
 ##### 实现思路
-在React SSR项目中需要实现两端路由
-客户端路由是用于支持用户通过点击链接的形式跳转页面
-服务端路由是用于支持用户直接从浏览器地址栏中访问页面
-客户端和服务器端公用一套路由规则
+- 在React SSR项目中需要实现两端路由
+- 客户端路由是用于支持用户通过点击链接的形式跳转页面
+- 服务端路由是用于支持用户直接从浏览器地址栏中访问页面
+- 客户端和服务器端公用一套路由规则
 
 ##### 编写路由规则
 
@@ -192,17 +199,17 @@ hydrate(
 
 ##### 实现思路分析
 
-在实现了React SSR的项目中需要实现两端Redux
-客户端Redux就是通过客户端Javascript管理store中的数据
-服务器端Redux就是在服务器端搭建一套Redux代码，用于管理组件中的数据
-客户端和服务器端公用一套Reducer代码
-创建Store的代码由于参数传递不用所以不可共用
+- 在实现了React SSR的项目中需要实现两端Redux
+- 客户端Redux就是通过客户端Javascript管理store中的数据
+- 服务器端Redux就是在服务器端搭建一套Redux代码，用于管理组件中的数据
+- 客户端和服务器端公用一套Reducer代码
+- 创建Store的代码由于参数传递不用所以不可共用
 
 ##### 实现客户端Redux
-1.创建Store
-2.配置Store
-3.创建Action和Reducer
-4.配置polyfill
+- 1.创建Store
+- 2.配置Store
+- 3.创建Action和Reducer
+- 4.配置polyfill
 由于浏览器不能识别异步函数代码，所以需要polyfill进行填充
 
 ##### 实现服务器端Redux
@@ -248,13 +255,17 @@ export default (req, store) => {
 
 ##### 服务器端store数据填充
 
-问题：服务器端创建的store是空的，组件并不能从Store中获取任何数据
-解决：服务器端在渲染组件之前获取组件所需要的数据
+- 问题：服务器端创建的store是空的，组件并不能从Store中获取任何数据
+- 解决：服务器端在渲染组件之前获取组件所需要的数据
 
 1.在组件中添加loadData方法，此方法用于回去组件所需数据，方法被服务器端调用
+
 2.将lodaData方法保存在当前组件的路由信息对象中
+
 3.服务器端在接收到请求后，根据请求地址匹配出要渲染的组件的路由信息
+
 4.从路由信息中获取组件中的loadData方法并调用方法获取组件所需数据
+
 5.当数据获取完成以后在渲染组件并将结果响应到客户端
 
 
@@ -295,10 +306,12 @@ app.get('*', (req, res) => {
 ```
 
 ### React 警告消除
-原因：客户端Store在初始状态下是没有数据的，在渲染组件的时候生成的是空的ul，但是服务器端是先获取数据再进行的组件渲染，所以生成的是有子元素的ul，hydrate方法在对比的时候发现两者不一致，所以报了警告。
-解决：将服务器端获取到的数据回填给客户端，让客户端有初始数据
+
+- 原因：客户端Store在初始状态下是没有数据的，在渲染组件的时候生成的是空的ul，但是服务器端是先获取数据再进行的组件渲染，所以生成的是有子元素的ul，hydrate方法在对比的时候发现两者不一致，所以报了警告。
+- 解决：将服务器端获取到的数据回填给客户端，让客户端有初始数据
 
 - **服务器响应Store初始状态**
+
 ```
  const initalState =  JSON.stringify(store.getState());
 
@@ -310,6 +323,7 @@ app.get('*', (req, res) => {
 ```
 
 - **客户端设置Store初始状态**
+
 ```
 export default () => configureStore({
   reducer,
@@ -320,7 +334,8 @@ export default () => configureStore({
 
 ##### 防范XSS攻击
 
-转义状态中的恶意代码
+-转义状态中的恶意代码
+
 ```
 import serialize from 'serialize-javascript';
 const initalState = serialize(store.getState());
